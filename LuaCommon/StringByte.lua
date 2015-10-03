@@ -96,8 +96,8 @@ function ReadVal(str, index)
 		return strToVal[typeVal](str, index)
 	end
 end
-function Unserialize(str)
-	return ReadVal(str, 1)
+function Unserialize(str, index)
+	return ReadVal(str, index or 1)
 end
 
 

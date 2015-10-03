@@ -2,4 +2,5 @@
 
 <Project Name="LuaCommon.luaprj" >
     <LuaFile RelativePath=".\StringByte.lua" />
+    <LuaFile RelativePath=".\RemoteProcedureCall.lua" />
 </Project>
