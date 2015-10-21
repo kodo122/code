@@ -3,4 +3,6 @@
 <Project Name="LuaCommon.luaprj" >
     <LuaFile RelativePath=".\StringByte.lua" />
     <LuaFile RelativePath=".\RemoteProcedureCall.lua" />
+    <LuaFile RelativePath=".\CallPool.lua" />
+    <LuaFile RelativePath=".\CallPoolFunc.lua" />
 </Project>

@@ -16,12 +16,15 @@ function RPC:Register(name, func)
 	self.funcs[name] = func
 end
 
-
 function RPC:Call(name, ...)
-	local msg = Serialize({...})
 
+	local contents = {}
+	WriteVal(name, contents)
+	local msg = Serialize(contents, ...)
+
+	local str = table.concat(contents)
 	--todo
-	self:OnMsg(name, msg)
+	--self:OnMsg(name, msg)
 end
 
 function RPC:OnMsg(name, str)
@@ -36,7 +39,6 @@ function TestFunc(a, b, c)
 	print(b)
 	print(c)
 end
-
 
 local rpc = RPC:new()
 rpc:Register("TestFunc", TestFunc)

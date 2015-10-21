@@ -34,7 +34,7 @@ function WriteVal(val, t)
 		
 		for k, v in pairs(val) do
 			WriteVal(k, t)
-			WriteVal(v, t)			
+			WriteVal(v, t)
 		end
 		--type 6 meaning over this table
 		table.insert(t, "9")	
@@ -43,12 +43,17 @@ function WriteVal(val, t)
 	end
 end
 
-function Serialize(val)
+function Serialize(contents, ...)
 	
-	local contents = {}
-	WriteVal(val, contents)
+	local vals = {...}
+	local count = #vals
+	
+	WriteVal(count, contents)
+	for _, val in ipairs(vals) do
+		WriteVal(val, contents)
+	end
 
-	return table.concat(contents)
+	--return table.concat(contents)
 end
 
 
@@ -97,7 +102,20 @@ function ReadVal(str, index)
 	end
 end
 function Unserialize(str, index)
-	return ReadVal(str, index or 1)
+	
+	local count
+	count, index = ReadVal(str, 1)
+	
+	local vals = {}
+	
+	for i = 1, count do
+		
+		local val
+		val, index = ReadVal(str, index)
+		table.insert(vals, val)
+	end
+	
+	return vals
 end
 
 
