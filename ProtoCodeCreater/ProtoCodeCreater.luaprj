@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<Project Name="ProtoCodeCreater.luaprj" >
+    <LuaFile RelativePath=".\LuaCodeGenerator.lua" />
+    <LuaFile RelativePath=".\ProtoDesc.lua" />
+    <LuaFile RelativePath=".\LuaCode.lua" />
+    <LuaFile RelativePath=".\test.lua" />
+</Project>
