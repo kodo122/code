@@ -15,7 +15,7 @@ end
 
 function LuaCode:_AddTab()
 	
-	local tabCount = #self.currStack
+	local tabCount = self.stackCount
 	if tabCount ~= 0 then
 		tab = string.sub("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t", 1, tabCount)
 		table.insert(self.content, tab)
@@ -25,50 +25,60 @@ end
 function LuaCode:AddClass(className)
 	
 	self.currClassName = className
-	self:AddSentense(o.className .. " = {}" )
-	self:AddSentense(o.className .. ".__index = " .. o.className)	
+	self:AddSentence(className .. " = {}" )
+	self:AddSentence(className .. ".__index = " .. className)	
 end
 
 function LuaCode:AddMethod(methodName, params)
 	
-	self:AddSentense(self.currClassName .. ":" .. methodName .. "(" .. params .. ")")
+	params = params or {}
+	
+	local paramStr = ""
+	for k, v in ipairs(params) do
+		if k ~= 1 then
+			paramStr = paramStr .. ", "
+		end
+		paramStr = paramStr .. v 
+	end
+	
+	self:AddSentence(self.currClassName .. ":" .. methodName .. "(" .. paramStr .. ")")
 	self.stackCount = self.stackCount + 1	
 end
 
 function LuaCode:AddIf(condition)
 
-	self:AddSentense("if " .. condition .. " then")
+	self:AddSentence("if " .. condition .. " then")
 	self.stackCount = self.stackCount + 1
 end
 
 function LuaCode:AddWhile(condition)
 
-	self:AddSentense("while " .. condition .. " do")
+	self:AddSentence("while " .. condition .. " do")
 	self.stackCount = self.stackCount + 1
 end
 
 function LuaCode:AddForIpair(containerName)
 	
-	self:AddSentense("for k, v in ipairs(" .. containerName .. ") do")
+	self:AddSentence("for k, v in ipairs(" .. containerName .. ") do")
 	self.stackCount = self.stackCount + 1
 end
 
 function LuaCode:AddForPair(containerName)
 	
-	self:AddSentense("for k, v in pairs(" .. containerName .. ") do")
+	self:AddSentence("for k, v in pairs(" .. containerName .. ") do")
 	self.stackCount = self.stackCount + 1
 end
 
 function LuaCode:AddForI(max)
 	
-	self:AddSentense("for i = 1, " .. max .. " do")
+	self:AddSentence("for i = 1, " .. max .. " do")
 	self.stackCount = self.stackCount + 1
 end
 
-function LuaCode:AddSentense(sentense)
+function LuaCode:AddSentence(sentence)
 
 	self:_AddTab()
-	table.insert(self.content, sentense)
+	table.insert(self.content, sentence)
 	table.insert(self.content, "\n")
 end
 

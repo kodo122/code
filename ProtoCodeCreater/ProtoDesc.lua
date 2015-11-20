@@ -22,7 +22,6 @@ CommonDataType =
 	"string",
 }
 
-
 DataContainerType = 
 {
 	"single",

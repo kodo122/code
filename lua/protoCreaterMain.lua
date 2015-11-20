@@ -1,7 +1,7 @@
 
 function include(path)
 		
-	require("protoCreater//" .. path)
+	require("lua/protoCreater/" .. path)
 	
 end
 
@@ -17,16 +17,30 @@ for _, v in ipairs(files) do
 	include(v)
 end
 
+local data = 
+{
+	className = "Test",
+
+	[1] = {name = "name", dataType = "common", dataContainerType = "single", keyCommonType = "", dataCommonType = "int8", dataStreamType = "", maxCount = 0},
+
+
+}
+
 isError = false
 function MainInit()
-	
+		
 	xpcall(
 		function()
-
+			local code = LuaCodeGenerator:new(data)
+			
+			code:GenerateDataCode()
+			local str = code:Code()
+			
+			print(str)		
 		end,
-		function()
-			local msg = debug.traceback()
-			MainError(msg)
+		function(errorMsg)
+			local errorStack = debug.traceback()
+			MainError(errorMsg, errorStack)
 		end
 	) 
 
@@ -35,23 +49,10 @@ end
 
 function MainUpdate()
 	
-	if isError then
-		return
-	end
-	
-	xpcall(
-		function()
-
-		end,
-		function()
-			local msg = debug.traceback()
-			MainError(msg)
-		end
-	) 
 end
 
-function MainError(errorMsg)
-	
+function MainError(errorMsg, errorStack)
 	print(errorMsg)
-	isError = true
+	print(errorStack)
+	isError = true	
 end

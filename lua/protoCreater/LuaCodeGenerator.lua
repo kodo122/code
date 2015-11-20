@@ -23,7 +23,7 @@ LuaDataTypeFunc =
 			end,
 			readFunc = function(data, luaCode)
 
-				luaCode:AddSentence("local count = buffer:ReadUint16()")
+				luaCode:AddSentence("local count = buffer:ReadUInt16()")
 				
 				luaCode:AddForI("count")
 				luaCode:AddSentence(LuaDataCommonTypeFunc[data.dataCommonType].readFunc(data.name .. "[i]"))
@@ -32,7 +32,7 @@ LuaDataTypeFunc =
 			end,
 			writeFunc = function(data, luaCode)
 
-				luaCode:AddSentence("buffer:WriteUint16(#" .. data.name .. ")")
+				luaCode:AddSentence("buffer:WriteUInt16(#" .. data.name .. ")")
 
 				luaCode:AddForIpair("self." .. data.name)
 				luaCode:AddSentence(LuaDataCommonTypeFunc[data.dataCommonType].writeFunc(v))
@@ -48,7 +48,7 @@ LuaDataTypeFunc =
 			end,
 			readFunc = function(data, luaCode)
 				
-				luaCode:AddSentence("local count = buffer:ReadUint16()")
+				luaCode:AddSentence("local count = buffer:ReadUInt16()")
 				
 				luaCode:AddForI("count")
 
@@ -159,7 +159,7 @@ LuaDataCommonTypeFunc =
 	int8 = 
 	{
 		newFunc = function(dataName)
-			return dataName .. " 0"
+			return dataName .. " = 0"
 		end,
 		readFunc = function(dataName)
 			return dataName .. " = buffer:ReadInt8()"
@@ -232,6 +232,10 @@ function LuaCodeGenerator:GenerateDataCode()
 	self:GenerateDataUnserializeFuncCode()
 end
 
+function LuaCodeGenerator:Code()
+	return self.luaCode:ToString()
+end
+
 function LuaCodeGenerator:GenerateDataNewFuncCode()
 	
 	local dataDesc = self.dataDesc
@@ -254,11 +258,11 @@ function LuaCodeGenerator:GenerateDataSerializeFuncCode()
 	for k, v in ipairs(dataDesc) do
 		
 		assert(k < 255)
-		self.luaCode:AddSentense("buffer:WriteUint8(" .. k .. ")")
+		self.luaCode:AddSentence("buffer:WriteUint8(" .. k .. ")")
 		LuaDataTypeFunc[v.dataType][v.dataContainerType].writeFunc(v, self.luaCode)
 	end
 	
-	self.luaCode:AddSentense("buffer:WriteUint8(255)")
+	self.luaCode:AddSentence("buffer:WriteUint8(255)")
 	self.luaCode:AddOverSection()
 end
 
@@ -269,17 +273,17 @@ function LuaCodeGenerator:GenerateDataUnserializeFuncCode()
 	self.luaCode:AddMethod("Unserialize", {"buffer"})
 	self.luaCode:AddWhile("true")
 
-	self.luaCode:AddSentense("local _k")
+	self.luaCode:AddSentence("local _k")
 	
 	for k, v in ipairs(dataDesc) do
 		
-		self.luaCode:AddSentense("_k = buffer:ReadUint8()")
+		self.luaCode:AddSentence("_k = buffer:ReadUint8()")
 		
 		self.luaCode:AddIf("not _k or _k ~= " .. k .. " or _k == 255")
-		self.luaCode:AddSentense("break")
+		self.luaCode:AddSentence("break")
 		self.luaCode:AddOverSection()
 		
-		LuaDataTypeFunc[v.dataType][v.dataContainerType].readFunc(dataDesc, self.luaCode)
+		LuaDataTypeFunc[v.dataType][v.dataContainerType].readFunc(v, self.luaCode)
 	end
 	
 	self.luaCode:AddOverSection()

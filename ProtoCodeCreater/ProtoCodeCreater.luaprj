@@ -5,4 +5,6 @@
     <LuaFile RelativePath=".\ProtoDesc.lua" />
     <LuaFile RelativePath=".\LuaCode.lua" />
     <LuaFile RelativePath=".\test.lua" />
+    <LuaFile RelativePath=".\ProtoParser.lua" />
+    <LuaFile RelativePath=".\ProtoContent.lua" />
 </Project>

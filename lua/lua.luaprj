@@ -73,6 +73,7 @@
     <Filter Name="common" >
         <LuaFile RelativePath=".\C2d.lua" />
         <LuaFile RelativePath=".\Type.lua" />
+        <LuaFile RelativePath=".\StringBuffer.lua" />
     </Filter>
     <Filter Name="bt" >
         <LuaFile RelativePath=".\BehaviorTree.lua" />
