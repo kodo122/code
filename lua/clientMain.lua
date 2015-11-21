@@ -43,15 +43,15 @@ function MainUpdate()
 		function()
 			_moduleManager:Update()
 		end,
-		function()
-			local msg = debug.traceback()
-			MainError(msg)
+		function(errorMsg)
+			local errorStack = debug.traceback()
+			MainError(errorMsg, errorStack)
 		end
 	) 
 end
 
-function MainError(errorMsg)
-	
+function MainError(errorMsg, errorStack)
 	print(errorMsg)
+	print(errorStack)
 	isError = true
 end

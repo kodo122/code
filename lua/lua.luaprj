@@ -12,13 +12,10 @@
         <LuaFile RelativePath=".\PlayerOp.lua" />
         <LuaFile RelativePath=".\EventManager.lua" />
     </Filter>
-    <LuaFile RelativePath=".\ReadBuffer.lua" />
-    <LuaFile RelativePath=".\Net.lua" />
     <Filter Name="platform" >
         <LuaFile RelativePath=".\PlatformCpp.lua" />
         <LuaFile RelativePath=".\CPlatform.lua" />
     </Filter>
-    <LuaFile RelativePath=".\Socket.lua" />
     <Filter Name="app" >
         <LuaFile RelativePath=".\lobbyMain.lua" />
         <LuaFile RelativePath=".\clientMain.lua" />
@@ -74,6 +71,8 @@
         <LuaFile RelativePath=".\C2d.lua" />
         <LuaFile RelativePath=".\Type.lua" />
         <LuaFile RelativePath=".\StringBuffer.lua" />
+        <LuaFile RelativePath=".\SMsg.lua" />
+        <LuaFile RelativePath=".\RPC.lua" />
     </Filter>
     <Filter Name="bt" >
         <LuaFile RelativePath=".\BehaviorTree.lua" />
@@ -91,9 +90,11 @@
     <Filter Name="protoCreater" >
         <LuaFile RelativePath=".\protoCreater\LuaCode.lua" />
         <LuaFile RelativePath=".\protoCreater\LuaCodeGenerator.lua" />
-        <LuaFile RelativePath=".\protoCreater\ProtoContent.lua" />
         <LuaFile RelativePath=".\protoCreater\ProtoDesc.lua" />
-        <LuaFile RelativePath=".\protoCreater\ProtoParser.lua" />
-        <LuaFile RelativePath=".\protoCreater\test.lua" />
+    </Filter>
+    <Filter Name="net" >
+        <LuaFile RelativePath=".\Net.lua" />
+        <LuaFile RelativePath=".\Socket.lua" />
+        <LuaFile RelativePath=".\NetHandler.lua" />
     </Filter>
 </Project>

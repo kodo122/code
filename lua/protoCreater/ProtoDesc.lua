@@ -2,7 +2,7 @@
 DataType = 
 {
 	"common",
-	"stream",
+	"class",
 }
 
 CommonDataType = 
@@ -19,6 +19,7 @@ CommonDataType =
 	"double",
 	
 	"bool",
+	"string8",
 	"string",
 }
 
@@ -33,7 +34,7 @@ local data =
 {
 	className = "",
 
-	[1] = {name = "", dataType = "", dataContainerType = "", keyCommonType = "", dataCommonType = "", dataStreamType = "", maxCount = 0},
+	[1] = {name = "", dataType = "", dataContainerType = "", keyCommonType = "", dataCommonType = "", dataClassType = ""},
 
 
 }

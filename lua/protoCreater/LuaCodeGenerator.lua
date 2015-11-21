@@ -32,10 +32,10 @@ LuaDataTypeFunc =
 			end,
 			writeFunc = function(data, luaCode)
 
-				luaCode:AddSentence("buffer:WriteUInt16(#" .. data.name .. ")")
+				luaCode:AddSentence("buffer:WriteUInt16(#self." .. data.name .. ")")
 
 				luaCode:AddForIpair("self." .. data.name)
-				luaCode:AddSentence(LuaDataCommonTypeFunc[data.dataCommonType].writeFunc(v))
+				luaCode:AddSentence(LuaDataCommonTypeFunc[data.dataCommonType].writeFunc("v"))
 
 				luaCode:AddOverSection()			
 			end,
@@ -59,7 +59,7 @@ LuaDataTypeFunc =
 			end,
 			writeFunc = function(data, luaCode)
 
-				luaCode:AddSentence("local mapSizeBufferPos = buffer:GetWritePos()")
+				luaCode:AddSentence("local mapSizeBufferPos = buffer:WriteOccupy()")
 				luaCode:AddSentence("local count = 0")
 				
 				luaCode:AddForPair("self." .. data.name)
@@ -75,12 +75,12 @@ LuaDataTypeFunc =
 		},
 	},
 	
-	stream =
+	class =
 	{
 		single = 
 		{
 			newFunc = function(data, luaCode)
-				luaCode:AddSentence("o." .. data.name .. " = " .. data.dataStreamType .. ":new()")
+				luaCode:AddSentence("o." .. data.name .. " = " .. data.dataClassType .. ":new()")
 			end,		
 			readFunc = function(data, luaCode)
 				luaCode:AddSentence("self." .. data.name .. ":Unseialize(buffer)")
@@ -97,10 +97,10 @@ LuaDataTypeFunc =
 			end,
 			readFunc = function(data, luaCode)
 				
-				luaCode:AddSentence("local count = buffer:ReadUint16()")
+				luaCode:AddSentence("local count = buffer:ReadUInt16()")
 				
 				luaCode:AddForI("count")
-				luaCode:AddSentence("local v = " .. data.dataStreamType .. ":new()")
+				luaCode:AddSentence("local v = " .. data.dataClassType .. ":new()")
 				luaCode:AddSentence("v:Unseialize(buffer)")		
 				luaCode:AddSentence("self." .. data.name .. "[i] = v")
 				
@@ -108,7 +108,7 @@ LuaDataTypeFunc =
 			end,
 			writeFunc = function(data, luaCode)
 				
-				luaCode:AddSentence("buffer:WriteUint16(#" .. data.name .. ")")
+				luaCode:AddSentence("buffer:WriteUInt16(#self." .. data.name .. ")")
 
 				luaCode:AddForIpair("self." .. data.name)
 				luaCode:AddSentence("v:Seialize(buffer)")
@@ -124,12 +124,12 @@ LuaDataTypeFunc =
 			end,
 			readFunc = function(data, luaCode)
 				
-				luaCode:AddSentence("local count = buffer:ReadUint16()")
+				luaCode:AddSentence("local count = buffer:ReadUInt16()")
 				
 				luaCode:AddForI("count")
 
 				luaCode:AddSentence(LuaDataCommonTypeFunc[data.keyCommonType].readFunc("local key"))
-				luaCode:AddSentence("local v = " .. data.dataStreamType .. ":new()")
+				luaCode:AddSentence("local v = " .. data.dataClassType .. ":new()")
 				luaCode:AddSentence("v:Unseialize(buffer)")	
 				luaCode:AddSentence("self." .. data.name .. "[key] = v")
 				
@@ -137,7 +137,7 @@ LuaDataTypeFunc =
 			end,
 			writeFunc = function(data, luaCode)
 			
-				luaCode:AddSentence("local mapSizeBufferPos = buffer:GetWritePos()")
+				luaCode:AddSentence("local mapSizeBufferPos = buffer:WriteOccupy()")
 				luaCode:AddSentence("local count = 0")
 				
 				luaCode:AddForPair("self." .. data.name)
@@ -159,7 +159,7 @@ LuaDataCommonTypeFunc =
 	int8 = 
 	{
 		newFunc = function(dataName)
-			return dataName .. " = 0"
+			return "o." .. dataName .. " = 0"
 		end,
 		readFunc = function(dataName)
 			return dataName .. " = buffer:ReadInt8()"
@@ -170,40 +170,129 @@ LuaDataCommonTypeFunc =
 	},
 	int16 = 
 	{
-	
+		newFunc = function(dataName)
+			return "o." .. dataName .. " = 0"
+		end,
+		readFunc = function(dataName)
+			return dataName .. " = buffer:ReadInt16()"
+		end,
+		writeFunc = function(dataName)
+			return "buffer:WriteInt16(" .. dataName .. ")"
+		end,	
 	},
 	int32 =
 	{
-	
-	
+		newFunc = function(dataName)
+			return "o." .. dataName .. " = 0"
+		end,
+		readFunc = function(dataName)
+			return dataName .. " = buffer:ReadInt32()"
+		end,
+		writeFunc = function(dataName)
+			return "buffer:WriteInt32(" .. dataName .. ")"
+		end,
 	},
 	
 	uint8 = 
 	{
-	
+		newFunc = function(dataName)
+			return "o." .. dataName .. " = 0"
+		end,
+		readFunc = function(dataName)
+			return dataName .. " = buffer:ReadUInt8()"
+		end,
+		writeFunc = function(dataName)
+			return "buffer:WriteUInt8(" .. dataName .. ")"
+		end,
 	},
 	uint16 = 
 	{
+		newFunc = function(dataName)
+			return "o." .. dataName .. " = 0"
+		end,
+		readFunc = function(dataName)
+			return dataName .. " = buffer:ReadUInt16()"
+		end,
+		writeFunc = function(dataName)
+			return "buffer:WriteUInt16(" .. dataName .. ")"
+		end,
 	},
 	uint32 =
 	{
-	
+		newFunc = function(dataName)
+			return "o." .. dataName .. " = 0"
+		end,
+		readFunc = function(dataName)
+			return dataName .. " = buffer:ReadUInt32()"
+		end,
+		writeFunc = function(dataName)
+			return "buffer:WriteUInt32(" .. dataName .. ")"
+		end,
 	},
 	float =
 	{
+		newFunc = function(dataName)
+			return "o." .. dataName .. " = 0"
+		end,
+		readFunc = function(dataName)
+			return dataName .. " = buffer:ReadFloat()"
+		end,
+		writeFunc = function(dataName)
+			return "buffer:WriteFloat(" .. dataName .. ")"
+		end,		
 	},
 	double = 
 	{
+		newFunc = function(dataName)
+			return "o." .. dataName .. " = 0"
+		end,
+		readFunc = function(dataName)
+			return dataName .. "buffer:ReadDouble()"
+		end,
+		writeFunc = function(dataName)
+			return "buffer:WriteDouble(" .. dataName .. ")"
+		end,
 	},
 	
 	bool = 
 	{
+		newFunc = function(dataName)
+			return "o." .. dataName .. " = false"
+		end,
+		readFunc = function(dataName)
+			return dataName .. " = buffer:ReadBool()"
+		end,
+		writeFunc = function(dataName)
+			return "buffer:WriteBool(" .. dataName .. ")"
+		end,
 	},
-	string = 
+	
+	string8 = 
 	{
+		newFunc = function(dataName)
+			return "o." .. dataName .. " = \"\""
+		end,
+		readFunc = function(dataName)
+			return dataName .. " = buffer:ReadString8()"
+		end,
+		writeFunc = function(dataName)
+			return "buffer:WriteString8(" .. dataName .. ")"
+		end,
+	},
+	
+	["string"] = 
+	{
+		newFunc = function(dataName)
+			return "o." .. dataName .. " = \"\""
+		end,
+		readFunc = function(dataName)
+			return dataName .. " = buffer:ReadString()"
+		end,
+		writeFunc = function(dataName)
+			return "buffer:WriteString(" .. dataName .. ")"
+		end,		
 	},
 }
-
 
 
 
@@ -242,10 +331,14 @@ function LuaCodeGenerator:GenerateDataNewFuncCode()
 
 	self.luaCode:AddMethod("new")
 
+	self.luaCode:AddSentence("local o = {}")
+	self.luaCode:AddSentence("setmetatable(o, self)")
+	
 	for _, v in ipairs(dataDesc) do
 		LuaDataTypeFunc[v.dataType][v.dataContainerType].newFunc(v, self.luaCode)
 	end
 	
+	self.luaCode:AddSentence("return o")	
 	self.luaCode:AddOverSection()
 end
 
@@ -258,11 +351,11 @@ function LuaCodeGenerator:GenerateDataSerializeFuncCode()
 	for k, v in ipairs(dataDesc) do
 		
 		assert(k < 255)
-		self.luaCode:AddSentence("buffer:WriteUint8(" .. k .. ")")
+		self.luaCode:AddSentence("buffer:WriteUInt8(" .. k .. ")")
 		LuaDataTypeFunc[v.dataType][v.dataContainerType].writeFunc(v, self.luaCode)
 	end
 	
-	self.luaCode:AddSentence("buffer:WriteUint8(255)")
+	self.luaCode:AddSentence("buffer:WriteUInt8(255)")
 	self.luaCode:AddOverSection()
 end
 
@@ -271,16 +364,16 @@ function LuaCodeGenerator:GenerateDataUnserializeFuncCode()
 	local dataDesc = self.dataDesc
 
 	self.luaCode:AddMethod("Unserialize", {"buffer"})
-	self.luaCode:AddWhile("true")
+	--self.luaCode:AddWhile("true")
 
 	self.luaCode:AddSentence("local _k")
 	
 	for k, v in ipairs(dataDesc) do
 		
-		self.luaCode:AddSentence("_k = buffer:ReadUint8()")
+		self.luaCode:AddSentence("_k = buffer:ReadUInt8()")
 		
-		self.luaCode:AddIf("not _k or _k ~= " .. k .. " or _k == 255")
-		self.luaCode:AddSentence("break")
+		self.luaCode:AddIf("_k == 255")
+		self.luaCode:AddSentence("return")
 		self.luaCode:AddOverSection()
 		
 		LuaDataTypeFunc[v.dataType][v.dataContainerType].readFunc(v, self.luaCode)
