@@ -70,14 +70,8 @@ local _btHandler =
 			local module1 = _G[config.class]:new(config.param1, config.param2)
 			_moduleManager:Push(module1, config.group)
 			
-			if config.parent then
-				if config.parent == "" then
-					_G[config.name] = module1
-				else
-					_G[config.parent][config.name] = module1
-					--todo
-				end
-			end
+			local parent = config.parent and _G[config.parent] or _G
+			parent[config.name] = module1
 		end,
 	},
 	

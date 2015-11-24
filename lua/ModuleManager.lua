@@ -24,6 +24,7 @@ end
 
 function ModuleManager:Push(m, group)
 	
+	group = group or "global"
 	--todo
 	if m.Init then
 		m:Init()
@@ -66,6 +67,17 @@ function ModuleManager:Update()
 		for k2, val in ipairs(self.modules[g]) do
 			if val.Update then
 				val:Update()
+			end
+		end
+	end	
+end
+
+function ModuleManager:LateUpdate()
+	
+	for k1, g in pairs(moduleGroup) do	
+		for k2, val in ipairs(self.modules[g]) do
+			if val.LateUpdate then
+				val:LateUpdate()
 			end
 		end
 	end	

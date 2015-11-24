@@ -6,9 +6,8 @@ local _btConfig =
 		type = "sequence",
 		children = 
 		{
-			{type = "createModule", class = "PlayerServer", name = "_playerServer", },
-			{type = "createModule", class = "PlayerManager", name = "_playerManager", },
-			{type = "createModule", class = "PlayerDataManager", name = "_playerDataManager", },					
+			{type = "createModule", class = "DBServer", name = "_dbServer", },
+			{type = "createModule", class = "DBExecutor", name = "_dbExecutor", },			
 		}
 	},
 }
@@ -20,14 +19,38 @@ function include(path)
 	require("lua/" .. path)
 end
 
-include("LRequire")
+local files = 
+{
+	"BehaviorTree",
+	"ModuleManager",
+	
+	--------------------------
+
+	"StringBuffer",
+	"SMsg",
+	"RPC",
+	"PlatformCpp",
+	"Net",
+	"Socket",
+	"NetHandler",
+
+	--------------------------
+
+	"DBExecutor",
+	"DBServer",
+	"DBSqlCreater",
+	"DBUser",
+}
+for _, v in ipairs(files) do
+	include(v)
+end
 
 isError = false
 function MainInit()
 	
 	xpcall(
 		function()
-			_runtime = {}
+			_mysqlHelper = MysqlHelper:new()
 			local m = BehaviorTree:new("serverMain")
 			_moduleManager:Push(m)
 		end,
@@ -35,7 +58,7 @@ function MainInit()
 			local msg = debug.traceback()
 			MainError(msg)
 		end
-	) 
+	)
 
 	return true
 end

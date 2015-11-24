@@ -1,100 +1,71 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <Project Name="lua.luaprj" >
-    <LuaFile RelativePath=".\ModuleManager.lua" />
-    <Filter Name="module" >
-        <LuaFile RelativePath=".\CMap.lua" />
-        <LuaFile RelativePath=".\CDynamicStick.lua" />
-        <LuaFile RelativePath=".\CStaticStick.lua" />
-        <LuaFile RelativePath=".\ObjectManager.lua" />
-        <LuaFile RelativePath=".\CFightRuntime.lua" />
-        <LuaFile RelativePath=".\SCamera.lua" />
-        <LuaFile RelativePath=".\PlayerOp.lua" />
-        <LuaFile RelativePath=".\EventManager.lua" />
+    <Filter Name="common" >
+        <Filter Name="net" >
+            <LuaFile RelativePath=".\SMsg.lua" />
+            <LuaFile RelativePath=".\Net.lua" />
+            <LuaFile RelativePath=".\NetHandler.lua" />
+            <LuaFile RelativePath=".\RPC.lua" />
+            <LuaFile RelativePath=".\Socket.lua" />
+            <LuaFile RelativePath=".\StringBuffer.lua" />
+        </Filter>
+        <Filter Name="bt" >
+            <LuaFile RelativePath=".\BehaviorTree.lua" />
+        </Filter>
+        <Filter Name="manager" >
+            <LuaFile RelativePath=".\ModuleManager.lua" />
+        </Filter>
     </Filter>
-    <Filter Name="platform" >
-        <LuaFile RelativePath=".\PlatformCpp.lua" />
-        <LuaFile RelativePath=".\CPlatform.lua" />
-    </Filter>
-    <Filter Name="app" >
+    <Filter Name="lobby" >
         <LuaFile RelativePath=".\lobbyMain.lua" />
+        <LuaFile RelativePath=".\LRequire.lua" />
+        <Filter Name="player" >
+            <LuaFile RelativePath=".\LPlayerManager.lua" />
+            <LuaFile RelativePath=".\LPlayer.lua" />
+            <LuaFile RelativePath=".\LPlayerServer.lua" />
+            <LuaFile RelativePath=".\LPlayerDataManager.lua" />
+        </Filter>
+    </Filter>
+    <Filter Name="client" >
         <LuaFile RelativePath=".\clientMain.lua" />
         <LuaFile RelativePath=".\CRequire.lua" />
-        <LuaFile RelativePath=".\protoCreaterMain.lua" />
-    </Filter>
-    <Filter Name="config" >
-        <LuaFile RelativePath=".\CLoadConfig.lua" />
-        <LuaFile RelativePath=".\CMapConfig.lua" />
-        <LuaFile RelativePath=".\CModelConfig.lua" />
-        <LuaFile RelativePath=".\CBtConfig.lua" />
-        <LuaFile RelativePath=".\CSkillConfig.lua" />
-    </Filter>
-    <Filter Name="ui" >
-        <LuaFile RelativePath=".\UI.lua" />
-        <LuaFile RelativePath=".\LoadingUI.lua" />
-        <LuaFile RelativePath=".\BattleUI.lua" />
-        <LuaFile RelativePath=".\BattleSkillBtn.lua" />
-    </Filter>
-    <Filter Name="time" >
-        <LuaFile RelativePath=".\STime.lua" />
-        <LuaFile RelativePath=".\STimer.lua" />
-    </Filter>
-    <Filter Name="Resource" >
-        <LuaFile RelativePath=".\ResourceManager.lua" />
-        <LuaFile RelativePath=".\GameObjectPool.lua" />
-    </Filter>
-    <Filter Name="action" >
-        <LuaFile RelativePath=".\AnimationAction.lua" />
-        <LuaFile RelativePath=".\ChangeValAction.lua" />
-        <LuaFile RelativePath=".\DelayAction.lua" />
-        <LuaFile RelativePath=".\FollowAction.lua" />
-        <LuaFile RelativePath=".\FuncAction.lua" />
-        <LuaFile RelativePath=".\MoveBy3Action.lua" />
-        <LuaFile RelativePath=".\MoveByAction.lua" />
-        <LuaFile RelativePath=".\ScaleByAction.lua" />
-        <LuaFile RelativePath=".\SequenceAction.lua" />
-        <LuaFile RelativePath=".\ShaderAction.lua" />
-        <LuaFile RelativePath=".\ShaderGraduallyAction.lua" />
-        <LuaFile RelativePath=".\SpawnAction.lua" />
-        <LuaFile RelativePath=".\TimeFuncAction.lua" />
-        <LuaFile RelativePath=".\UpdateFuncAction.lua" />
-        <LuaFile RelativePath=".\YMoveByAction.lua" />
-    </Filter>
-    <Filter Name="object" >
-        <LuaFile RelativePath=".\Object.lua" />
-        <LuaFile RelativePath=".\Object2D.lua" />
-        <LuaFile RelativePath=".\ActionRunner.lua" />
-        <LuaFile RelativePath=".\FightComponent.lua" />
-        <LuaFile RelativePath=".\Gun.lua" />
-    </Filter>
-    <Filter Name="common" >
-        <LuaFile RelativePath=".\C2d.lua" />
-        <LuaFile RelativePath=".\Type.lua" />
-        <LuaFile RelativePath=".\StringBuffer.lua" />
-        <LuaFile RelativePath=".\SMsg.lua" />
-        <LuaFile RelativePath=".\RPC.lua" />
-    </Filter>
-    <Filter Name="bt" >
-        <LuaFile RelativePath=".\BehaviorTree.lua" />
-        <LuaFile RelativePath=".\CAiBtHandler.lua" />
-        <LuaFile RelativePath=".\CFrameBtHandler.lua" />
-        <LuaFile RelativePath=".\CSceneBtHandler.lua" />
-        <LuaFile RelativePath=".\CControlBtHandler.lua" />
-    </Filter>
-    <Filter Name="skill" >
-        <LuaFile RelativePath=".\skill.lua" />
-    </Filter>
-    <Filter Name="component" >
-        <LuaFile RelativePath=".\CUnitController.lua" />
+        <Filter Name="config" >
+            <LuaFile RelativePath=".\CBtConfig.lua" />
+            <LuaFile RelativePath=".\CLoadConfig.lua" />
+            <LuaFile RelativePath=".\CMapConfig.lua" />
+            <LuaFile RelativePath=".\CModelConfig.lua" />
+        </Filter>
+        <Filter Name="bt" >
+            <LuaFile RelativePath=".\CAiBtHandler.lua" />
+            <LuaFile RelativePath=".\CControlBtHandler.lua" />
+            <LuaFile RelativePath=".\CSceneBtHandler.lua" />
+        </Filter>
+        <Filter Name="logic" >
+            <LuaFile RelativePath=".\CLogin.lua" />
+        </Filter>
     </Filter>
     <Filter Name="protoCreater" >
         <LuaFile RelativePath=".\protoCreater\LuaCode.lua" />
         <LuaFile RelativePath=".\protoCreater\LuaCodeGenerator.lua" />
         <LuaFile RelativePath=".\protoCreater\ProtoDesc.lua" />
+        <LuaFile RelativePath=".\protoCreaterMain.lua" />
+        <LuaFile RelativePath=".\protoCreater\RoleDataDesc.lua" />
     </Filter>
-    <Filter Name="net" >
-        <LuaFile RelativePath=".\Net.lua" />
-        <LuaFile RelativePath=".\Socket.lua" />
-        <LuaFile RelativePath=".\NetHandler.lua" />
+    <Filter Name="dbAgent" >
+        <LuaFile RelativePath=".\dbAgentMain.lua" />
+        <LuaFile RelativePath=".\DBServer.lua" />
+        <LuaFile RelativePath=".\DBSqlCreater.lua" />
+        <LuaFile RelativePath=".\DBExecutor.lua" />
+        <LuaFile RelativePath=".\DBUser.lua" />
+    </Filter>
+    <Filter Name="playerData" >
+        <LuaFile RelativePath=".\RoleData.lua" />
+        <LuaFile RelativePath=".\PlayerData.lua" />
+    </Filter>
+    <Filter Name="appConfig" >
+        <LuaFile RelativePath=".\..\config\dbConfig.lua" />
+        <LuaFile RelativePath=".\..\config\lobbyConfig.lua" />
+        <LuaFile RelativePath=".\..\config\protoCreaterConfig.lua" />
     </Filter>
 </Project>

@@ -41,7 +41,7 @@ function LuaCode:AddMethod(methodName, params)
 		paramStr = paramStr .. v 
 	end
 	
-	self:AddSentence(self.currClassName .. ":" .. methodName .. "(" .. paramStr .. ")")
+	self:AddSentence("function " .. self.currClassName .. ":" .. methodName .. "(" .. paramStr .. ")")
 	self.stackCount = self.stackCount + 1	
 end
 

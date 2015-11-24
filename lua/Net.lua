@@ -2,19 +2,19 @@
 Net = {}
 Net.__index = Net
 
-function Net:new()
+function Net:new(maxIoSize)
 	
 	local o = {}
 	setmetatable(o, self)
 
-	o.netHelper = NetHelper:new()
+	o.netHelper = Platform.CreateNetHelper(maxIoSize or 10)
 	o.sockets = {}
 
 	return o
 end
 
-function Net:Init(maxIoSize)
-	return self.netHelper:Initialize(maxIoSize)
+function Net:Init()
+	--return self.netHelper:Initialize(maxIoSize)
 end
 
 function Net:RegListener(ip, port, maxAcceptIoCount, maxAcceptEachWait)
@@ -43,6 +43,8 @@ end
 
 function Net:Update()
 	
+	self.netHelper:Update()
+	
 	while true do
 		local remoteNetEvent = self.netHelper:PopEvent()
 		if not remoteNetEvent then
@@ -57,13 +59,14 @@ function Net:Update()
 			errorCode = remoteNetEvent.errorCode,
 		}
 
-		if eventType == "recv" then
-			netEvent.proto = remoteNetEvent.proto,
-			netEvent.content = remoteNetEvent.content,
-		then eventType == "accepted" then
-			local socket = Socket:new(self, remoteNetEvent.newSocketId)
-			self.sockets[id] = socket
-			netEvent.newSocket = socket
+		if netEvent.eventType == "recv" then
+			netEvent.proto = remoteNetEvent.proto
+			netEvent.content = remoteNetEvent.content
+		elseif netEvent.eventType == "accepted" then
+			local newSocketId = remoteNetEvent.newSocketId
+			local newSocket = Socket:new(self, newSocketId)
+			self.sockets[newSocketId] = newSocket
+			netEvent.newSocket = newSocket
 		end
 		
 		local socket = self.sockets[id]
@@ -71,6 +74,10 @@ function Net:Update()
 		
 		socket:PushEvent(netEvent)
 	end
+end
+
+function Net:LateUpdate()
+	self.netHelper:LateUpdate()
 end
 
 function Net:CloseSocket(socket)

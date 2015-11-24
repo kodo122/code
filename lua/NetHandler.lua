@@ -4,13 +4,17 @@ NetHandler.__index = NetHandler
 NetHandler.handleFunc = 
 {
 	connect_result = function(self, event)
-		self.handler:ConnectResult()		
+		self.handler:ConnectResult(event.errorCode)		
 	end,
 	accepted = function(self, event)
 		self.handler:OnAccept(event.newSocket)
 	end,	
 	recv = function(self, event)
-		rpc:OnMsg(event.content)
+		if event.proto == 1 then
+			self.rpc:OnCall(event.content)
+		elseif event.proto == 2 then
+			self.rpc:OnCallback(event.content)
+		end
 	end,
 	disconnect = function(self, event)
 		self.handler:OnDisconnect()
@@ -34,13 +38,20 @@ end
 
 function NetHandler:Update()
 	
+	local count = 0
 	while true do
 		
-		local event = self.socket
+		local event = self.socket:PopEvent()		
 		if not event then
 			break
 		end
-		NetHandler.handleFunc(self, event)
+		NetHandler.handleFunc[event.eventType](self, event)
+
+		--todo for dbagent
+		count = count + 1
+		if count > 2000 then
+			break
+		end
 	end
 end
 

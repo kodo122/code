@@ -72,6 +72,16 @@ local luas =
 	"CBtConfig",
 	-----------------------
 
+	"StringBuffer",
+	"SMsg",
+	"RPC",
+	"Net",
+	"Socket",
+	"NetHandler",
+
+	"CLobbyConnector",
+	"CLogin",
+	-----------------------
 }
 
 for i = 1, #luas do

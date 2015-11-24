@@ -42,6 +42,8 @@ function Platform:Init()
 
 	Sprite = luanet.import_type('UnityEngine.Sprite')
 	BMFont = luanet.import_type('BMFont')
+	
+	NetHelper = luanet.import_type('NetHelper')
 
 	SetObjectPosition = LuaHelper.SetObjectPosition
 	SetObjectPositionWithV3 = LuaHelper.SetObjectPositionWithV3
@@ -88,3 +90,8 @@ function Platform.AddToChild(obj, parent, worldPositionStays)
 	obj.transform:SetParent(parent.transform, worldPositionStays)
 end
 
+function Platform.CreateNetHelper(maxIoSize)
+	local netHelper = NetHelper()
+	--netHelper:Initialize(maxIoSize)
+	return netHelper
+end

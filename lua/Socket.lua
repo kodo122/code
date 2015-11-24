@@ -21,14 +21,12 @@ function Socket:PushEvent(event)
 end
 
 function Socket:PopEvent()
-	
 	local eventCount = #self.events
 	if eventCount == 0 then
 		return nil
 	end
 
 	local event = self.events[self.eventReadIndex]
-	self.eventReadIndex = self.eventReadIndex + 1
 	
 	if self.eventReadIndex == eventCount then
 		self.eventReadIndex = 0

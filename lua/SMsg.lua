@@ -40,7 +40,7 @@ function SMsg:WriteVal(val)
 			for k, v in pairs(val) do
 				SMsg:WriteVal(k)
 				SMsg:WriteVal(v)
-			end		
+			end
 		end
 		--type 9 meaning over this table
 		buffer:WriteChar('9')

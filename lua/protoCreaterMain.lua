@@ -11,8 +11,8 @@ local files =
 	"LuaCode",
 	"LuaCodeGenerator",
 
+	"RoleDataDesc",
 }
-
 for _, v in ipairs(files) do
 	include(v)
 end
@@ -38,12 +38,16 @@ function MainInit()
 		
 	xpcall(
 		function()
-			local code = LuaCodeGenerator:new(data1)
 			
-			code:GenerateDataCode()
-			local str = code:Code()
-			
-			print(str)		
+			io.output("./lua/RoleData.lua")
+			for _, v in ipairs(playerDataDesc)  do
+				local code = LuaCodeGenerator:new(v)
+				code:GenerateDataCode()
+				local str = code:Code()
+				io.write(str)
+			end
+			io.flush()
+			io.close()
 		end,
 		function(errorMsg)
 			local errorStack = debug.traceback()
@@ -56,6 +60,10 @@ end
 
 function MainUpdate()
 	
+end
+
+function MainLateUpdate()
+
 end
 
 function MainError(errorMsg, errorStack)

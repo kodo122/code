@@ -4,13 +4,12 @@ local _btConfig =
 	clientStartup = 
 	{
 		type = "sequence",
-		--{thing = "createModule", class = "Platform", name = "_platform", group = "global", parent = "" },
-		--{thing = "createModule", class = "STime", name = "_time", group = "global", parent = ""},
 		
 		children = 
 		{
-			{type = "createModule", class = "ResourceManager", name = "_resourceManager", group = "global", parent = "" },
+			{type = "createModule", class = "ResourceManager", name = "_resourceManager", },
 			{type = "createModule", class = "BehaviorTree", param1 = "load_copy_10101", name = "loadingController", group = "loading", parent = "_runtime" },
+			{type = "createModule", class = "LobbyConnector", name = "_lobbyConnector", },
 		}
 	},
 	load_copy_10101 = 
@@ -26,12 +25,12 @@ local _btConfig =
 			{type = "loadResource", config = "copy_10101"},
 			{type = "loadingBarProgress" },
 			
-			{type = "createModule", class = "EventManager", name = "_eventManager", group = "scene", parent = "" },
+			{type = "createModule", class = "EventManager", name = "_eventManager", group = "scene", },
 			{type = "createModule", class = "Map", param1 = 102, name = "map", group = "scene", parent = "_runtime" },	
 			{type = "createModule", class = "ObjectManager", name = "objectManager", group = "scene", parent = "_runtime" },
 			{type = "createModule", class = "BattleUI", name = "ui", group = "scene", parent = "_runtime" },
 			{type = "createModule", class = "Stick", name = "stick", group = "scene", parent = "_runtime" },
-			{type = "createModule", class = "FightRuntime", name = "_fightRuntime", group = "scene", parent = "" },
+			{type = "createModule", class = "FightRuntime", name = "_fightRuntime", group = "scene", },
 			
 			{type = "createHero", region = "1", point = "born", },
 			{type = "createModule", class = "SCamera", param1 = "1", param2 = "born",  name = "camera", group = "scene", parent = "_runtime" },	

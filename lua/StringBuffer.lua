@@ -27,7 +27,6 @@ function StringBuffer:ReadNumber()
 	
 	local readIndex = self.readIndex
 	local str = self.str
-	local strTotalLen = self.strLen
 
 	local len = string.byte(str, readIndex)
 	local val = tonumber(string.sub(str, readIndex + 1, readIndex + len))
@@ -38,49 +37,49 @@ function StringBuffer:ReadNumber()
 end
 
 function StringBuffer:ReadChar()
-	readIndex = readIndex + 1
-	return string.char(str, readIndex - 1)
+
+	self.readIndex = self.readIndex + 1
+	return string.sub(self.str, self.readIndex - 1, self.readIndex - 1)
 end
 
 function StringBuffer:ReadInt8()
-	self:ReadNumber()
+	return self:ReadNumber()
 end
 
 function StringBuffer:ReadInt16()
-	self:ReadNumber()
+	return self:ReadNumber()
 end
 
 function StringBuffer:ReadInt32()
-	self:ReadNumber()
+	return self:ReadNumber()
 end
 
 function StringBuffer:ReadUInt8()
-	self:ReadNumber()
+	return self:ReadNumber()
 end
 
 function StringBuffer:ReadUInt16()
-	self:ReadNumber()
+	return self:ReadNumber()
 end
 
 function StringBuffer:ReadUInt32()
-	self:ReadNumber()
+	return self:ReadNumber()
 end
 
 function StringBuffer:ReadFloat()
-	self:ReadNumber()
+	return self:ReadNumber()
 end
 
 function StringBuffer:ReadDouble()
-	self:ReadNumber()
+	return self:ReadNumber()
 end
 
 function StringBuffer:ReadBool()
 	
 	local readIndex = self.readIndex
 	local str = self.str
-	local strTotalLen = self.strLen
 	
-	local val = string.char(str, readIndex) == '1'
+	local val = string.sub(str, readIndex, readIndex) == '1'
 	self.readIndex = readIndex + 1
 	
 	return val
@@ -90,7 +89,6 @@ function StringBuffer:ReadString8()
 
 	local readIndex = self.readIndex
 	local str = self.str
-	local strTotalLen = self.strLen
 
 	--can't be 0
 	local len = string.byte(str, readIndex) - 1
@@ -105,9 +103,8 @@ function StringBuffer:ReadString()
 	
 	local readIndex = self.readIndex
 	local str = self.str
-	local strTotalLen = self.strLen
 	
-	local lenlen = string.byte(str, readIndex))
+	local lenlen = string.byte(str, readIndex)
 	readIndex = readIndex + 1
 	local len = tonumber(string.sub(str, readIndex, readIndex + lenlen - 1))
 	readIndex = readIndex + lenlen
@@ -160,12 +157,12 @@ function StringBuffer:WriteDouble(val)
 end
 
 function StringBuffer:WriteBool(val)
-	table.insert(writeTable, val and '1' or '0')
+	table.insert(self.writeTable, val and '1' or '0')
 end
 
 function StringBuffer:WriteString8(val)
 	local writeTable = self.writeTable
-	local len = string.char(string.len(val))
+	local len = string.char(string.len(val) + 1)
 	table.insert(writeTable, len)
 	table.insert(writeTable, val)	
 end
